@@ -10,7 +10,7 @@ Become credible enough to apply for cloud engineering internships, with a focus 
 
 ## Roadmap
 
-- [ ] **Foundations** — Linux & Python through practice (automation, file/log handling)
+- [In Process] **Foundations** — Linux & Python through practice (automation, file/log handling)
 - [ ] **AWS Certified Cloud Practitioner** (CLF-C02)
 - [ ] **AWS Certified Solutions Architect – Associate** (SAA-C03)
 - [ ] **Infrastructure as Code** — Terraform (HashiCorp Terraform Associate)
