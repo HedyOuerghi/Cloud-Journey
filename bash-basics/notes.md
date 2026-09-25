@@ -93,3 +93,54 @@ find . -type f                 # all regular files
 - Without quotes, the shell performs *globbing*: it replaces `*.log` with the matching files in the current directory **before** `find` even runs.
 - `find` then receives several names instead of a single pattern → error, and behavior that changes depending on the directory's contents.
 - Quotes stop the shell from touching the `*`: the raw pattern is passed to `find`, which handles the search itself. Reliable behavior everywhere.
+
+## Reading permissions: ls -l
+
+```bash
+ls -l
+# drwxrwx---  1 user group  152 ...  bash-basics
+# -rw-r--r--  1 user group 1315 ...  README.md
+```
+
+The first block of 10 characters breaks down as:
+
+```
+-  rw-  r--  r--
+│  │    │    └── others
+│  │    └─────── group
+│  └──────────── owner
+└─────────────── file type
+```
+
+- **File type** (1st char): `-` = regular file, `d` = directory, `l` = symbolic link.
+- **Then 3 groups of 3** (owner / group / others), each `rwx`:
+  - `r` = read (4), `w` = write (2), `x` = execute (1).
+- Maps directly to octal: `rw-r--r--` = `644`, `rwxrwx---` = `770`.
+
+### Changing permissions
+
+```bash
+chmod 644 README.md    # owner: rw, group: r, others: r
+```
+
+**Note:** on some managed environments (e.g. a school laptop with a configured `umask` or a special disk mount), permissions may be reset automatically after you change them. If a permission won't "stick", the cause is a system-level rule, not the `chmod` command.
+
+## Writing a shell script
+
+```bash
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <name>"
+    exit 1
+fi
+echo "Hello my name is $1"
+```
+
+- **Shebang** `#!/bin/bash` (first line): tells the system to run the file with bash.
+- **Variables:** `name="Hedy"` (no spaces around `=`), read with `$name`.
+- **Arguments:** `$1`, `$2`... = positional args; `$0` = script name; `$#` = number of args.
+- **Input validation:** check args before acting — a good script fails loudly, never silently produces wrong output.
+- **`if [ ... ]`:** `[` is a command, so it needs spaces inside: `[ $# -eq 0 ]`. `-eq` compares numbers.
+- **Exit codes:** `exit 0` = success, `exit 1` (or any non-zero) = error. Used to chain scripts (`a && b`) and by CI/CD to detect failures.
+- **Quotes:** double `"$1"` → variable expanded; single `'$1'` → literal `$1`.
