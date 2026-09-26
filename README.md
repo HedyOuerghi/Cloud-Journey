@@ -1,8 +1,8 @@
 # Cloud Journey ☁️
 
-My hands-on learning path toward becoming a cloud computing engineer, focused on **AWS**, Infrastructure as Code, and automation.
+My hands-on learning path toward becoming a cloud engineer, focused on **AWS**, Infrastructure as Code, and automation.
 
-I'm a computer engineering student who wants to specialize in Cloud & Cybersecurity. This repo tracks my progress through real practice - commands, scripts, and small projects - rather than passive theory. Every folder is something I actually built or worked through.
+I'm a computer engineering student specializing in Cloud & Cybersecurity. This repo tracks my progress through real practice - commands, scripts, and small projects - rather than passive theory. Every folder is something I actually built or worked through.
 
 ## Goal
 
@@ -10,20 +10,30 @@ Become credible enough to apply for cloud engineering internships, with a focus 
 
 ## Roadmap
 
-- [In Progress] **Foundations** — Linux & Python through practice (automation, file/log handling)
+- [ ] **Foundations** *(in progress)*
+  - [x] Linux & Bash through practice (permissions, logs, `find`, scripting)
+  - [ ] Python through practice (files, errors, JSON, APIs)
 - [ ] **AWS Certified Cloud Practitioner** (CLF-C02)
-- [ ] **AWS Certified Solutions Architect – Associate** (SAA-C03)
-- [ ] **Infrastructure as Code** — Terraform (HashiCorp Terraform Associate)
-- [ ] **Containers** — Docker & Kubernetes basics
+- [ ] **AWS Certified Solutions Architect - Associate** (SAA-C03)
+- [ ] **Infrastructure as Code** - Terraform (HashiCorp Terraform Associate)
+- [ ] **Containers** - Docker & Kubernetes basics
+
+## Projects
+
+| Project | Description | Stack |
+|---------|-------------|-------|
+| [Log Analyzer](projects/log-analyzer/) | Summarizes a log file: total entries and count per level (INFO, WARNING, ERROR), with input validation and proper error handling | Bash |
 
 ## Repository structure
 
 | Folder | Content |
 |--------|---------|
-| `bash-basics/` | Core Linux/shell commands, with notes on *why* they work |
+| `bash-basics/` | Core Linux/shell commands and scripts, with notes on *why* they work |
+| `projects/` | Standalone projects, each with its own README |
 
-*(This table will grow as the journey progresses.)*
+*(This grows as the journey progresses.)*
 
 ## Progress log
 
-- **2026-09** — Started foundations: shell fundamentals (permissions, log inspection, `find`, globbing).
+- **2026-09** - Shell fundamentals: permissions, log inspection, `find` and globbing, scripting (arguments, validation, exit codes, command substitution).
+- **2026-09** - First project: Bash log analyzer.
