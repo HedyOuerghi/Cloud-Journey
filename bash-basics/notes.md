@@ -144,3 +144,28 @@ echo "Hello my name is $1"
 - **`if [ ... ]`:** `[` is a command, so it needs spaces inside: `[ $# -eq 0 ]`. `-eq` compares numbers.
 - **Exit codes:** `exit 0` = success, `exit 1` (or any non-zero) = error. Used to chain scripts (`a && b`) and by CI/CD to detect failures.
 - **Quotes:** double `"$1"` → variable expanded; single `'$1'` → literal `$1`.
+
+
+## Command substitution: $(...)
+
+```bash
+#!/bin/bash
+
+count=$(find . -type f | wc -l)
+echo "This folder contains $count files"
+```
+
+- `$(command)` runs the command first and replaces itself with the command's **output**, which can then be stored in a variable.
+- Same logic as every `$` in bash: `$name` = value of a variable, `$1` = value of an argument, `$(cmd)` = value produced by a command.
+- The old backtick syntax `` `cmd` `` does the same thing but is discouraged: less readable and hard to nest. Always use `$(...)`.
+
+### Counting files: ls vs find
+
+```bash
+ls | wc -l               # entries in the current directory only (files AND directories)
+find . -type f | wc -l   # regular files only, recursively
+```
+
+- `wc -l` counts **lines**. `ls` prints one entry per line when its output goes to a pipe (and in columns when it goes to a terminal), so the count works.
+- `find` only goes **down** from its starting point, never up: the same `find .` gives different results depending on where it is run.
+- Before counting, know exactly what you are counting: `wc -l` always returns a clean number, even when the input does not match your question.
