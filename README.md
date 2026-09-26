@@ -29,6 +29,7 @@ Become credible enough to apply for cloud engineering internships, with a focus 
 | Folder | Content |
 |--------|---------|
 | `bash-basics/` | Core Linux/shell commands and scripts, with notes on *why* they work |
+| `python-basics/` | Python fundamentals refresher: types, references, mutability, and more |
 | `projects/` | Standalone projects, each with its own README |
 
 *(This grows as the journey progresses.)*
