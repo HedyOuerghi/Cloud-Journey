@@ -217,6 +217,7 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Personnal Stuff
+# Personal Stuff
 helpsheets.txt
 *.swp
+!projects/log-analyzer/samples/*.log

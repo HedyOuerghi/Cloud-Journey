@@ -1,0 +1,16 @@
+2026-09-26 10:00:01 INFO Service started
+2026-09-26 10:00:05 INFO Connected to database
+2026-09-26 10:02:13 WARNING Disk usage at 81%
+2026-09-26 10:05:47 ERROR Failed to write to /var/data: disk full
+2026-09-26 10:05:48 INFO Retrying write operation
+2026-09-26 10:05:50 ERROR Failed to write to /var/data: disk full
+2026-09-26 10:10:00 WARNING High memory usage: 92%
+2026-09-26 10:15:22 INFO Backup completed
+2026-09-26 10:20:31 ERROR Connection timeout to 10.0.0.12
+2026-09-26 10:21:00 INFO Service health check OK
+
+
+
+
+
+
