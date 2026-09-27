@@ -194,3 +194,43 @@ except FileNotFoundError:
 - With no argument, `sys.argv` is `['script.py']` (length 1): accessing `sys.argv[1]` raises `IndexError`. Always check the length first.
 - A `try` only protects the code written **inside** it: the call that can fail must be in the block.
 - Writing to stderr does **not** change the exit code. On failure, call `sys.exit(1)` explicitly, otherwise the script returns 0 and is seen as successful. A script that ends normally returns 0.
+
+
+## JSON
+
+JSON is a **text** format for structured data, used everywhere in the cloud (API responses, configs, AWS IAM policies, structured logs).
+
+| JSON | Python |
+|---|---|
+| object `{"key": value}` | `dict` |
+| array `[1, 2]` | `list` |
+| string `"text"` | `str` |
+| number | `int`, `float` |
+| `true` / `false` | `True` / `False` |
+| `null` | `None` |
+
+Rules: strings and keys always in **double quotes**, keys are always strings, no trailing comma.
+
+```python
+import json
+
+text = json.dumps(data, indent=2)   # Python object -> JSON text
+data = json.loads(text)             # JSON text -> Python object
+
+with open("report.json", "w", encoding="utf-8") as f:
+    json.dump(data, f, indent=2)    # write directly to a file
+with open("report.json", encoding="utf-8") as f:
+    data = json.load(f)             # read directly from a file
+```
+
+- The `s` in `dumps` / `loads` stands for **string**.
+- A JSON string is **not** a dict: `text["key"]` makes no sense. Work with Python objects in memory, convert to JSON to exchange or store.
+- `open(..., "w")` writes and overwrites (like `>`), `"a"` appends (like `>>`), default `"r"` reads.
+
+## Short-circuit evaluation
+
+```python
+elif len(sys.argv) == 3 and sys.argv[2] == "--json":
+```
+
+`and` stops as soon as the left side is `False`: `sys.argv[2]` is never read when it does not exist. Put the guarding check **first**. Same principle as `&&` in Bash.

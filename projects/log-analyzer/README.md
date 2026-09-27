@@ -1,15 +1,15 @@
 # Log Analyzer
 
-A small tool that summarizes a log file: total entries and count per log level (INFO, WARNING, ERROR). Implemented twice, in **Bash** and in **Python**, with identical behavior and output.
+A small tool that summarizes a log file: total entries and count per log level (INFO, WARNING, ERROR). Implemented twice, in **Bash** and in **Python**, with identical behavior and output. The Python version can also output the report as JSON.
 
 ## Usage
 
 ```bash
-./log_analyzer.sh <logfile>          # Bash version
-python3 log_analyzer.py <logfile>    # Python version
+./log_analyzer.sh <logfile>                  # Bash version
+python3 log_analyzer.py <logfile> [--json]   # Python version
 ```
 
-Example:
+Text report:
 
 ```bash
 python3 log_analyzer.py samples/sample.log
@@ -24,9 +24,24 @@ WARNING     : 2
 ERROR       : 3
 ```
 
+JSON report, for use by other programs:
+
+```bash
+python3 log_analyzer.py samples/sample.log --json
+```
+
+```json
+{
+  "total": 10,
+  "INFO": 5,
+  "WARNING": 2,
+  "ERROR": 3
+}
+```
+
 ## Behavior
 
-- No argument: prints usage and exits with code 1.
+- Missing or invalid arguments: prints usage and exits with code 1.
 - Path is missing or not a regular file: prints an error and exits with code 1.
 - Empty lines (including lines containing only whitespace) are ignored in the total count.
 - Error messages are written to stderr.
@@ -36,7 +51,7 @@ ERROR       : 3
 | File | Description |
 |------|-------------|
 | `log_analyzer.sh` | Bash implementation (`grep`, `wc`, input validation) |
-| `log_analyzer.py` | Python implementation (file reading, dictionary counting, `try/except`) |
+| `log_analyzer.py` | Python implementation (file reading, dictionary counting, `try/except`, JSON output) |
 | `samples/sample.log` | Example log file used for testing |
 
 ## Known limitations
