@@ -123,3 +123,45 @@ print(x)        # 5
 ```
 
 **Rule:** a function can change what you pass it **only if** the object is mutable **and** the function modifies it in place. Re-assigning the parameter (`param = ...`) never affects the caller. Same behavior as Java with objects vs primitives.
+
+## Reading files
+
+```python
+with open(path, encoding="utf-8") as f:
+    for line in f:
+        ...
+```
+
+- `with` closes the file automatically at the end of the block, even if an error occurs.
+- Iterating over the file object reads it **line by line** (each line ends with `\n`).
+- `encoding="utf-8"` makes the behavior identical on every machine.
+- `"ERROR" in line` tests whether a string contains another one.
+
+## Reading a traceback
+
+Read it **from the bottom**: the last line gives the error type (e.g. `FileNotFoundError`) and its message. The lines above show the call chain, from the outermost call to where the error was raised.
+
+## Handling errors: try / except
+
+```python
+import sys
+
+def count_errors(path):
+    count = 0
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            if "ERROR" in line:
+                count += 1
+    return count
+
+for p in paths:
+    try:
+        print(p, count_errors(p))
+    except FileNotFoundError:
+        print(f"Error: file not found: {p}", file=sys.stderr)
+```
+
+- **Catch a specific exception**, never a bare `except:` (or a broad `except Exception`): it would also hide bugs in your own code.
+- **Handle errors where the decision belongs.** The function's job is to count; it lets the error propagate. The caller decides what to do: skip the file and continue, or stop everything with `sys.exit(1)`.
+- **Never hide a failure behind a default value.** Returning `0` for a missing file would make "no errors" and "could not read the file" look identical.
+- Errors go to **stderr**: `print(..., file=sys.stderr)`. Exit code: `sys.exit(1)`. Same conventions as in Bash (`>&2`, `exit 1`).
