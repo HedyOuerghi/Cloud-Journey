@@ -22,14 +22,14 @@ Become credible enough to apply for cloud engineering internships, with a focus 
 
 | Project | Description | Stack |
 |---------|-------------|-------|
-| [Log Analyzer](projects/log-analyzer/) | Summarizes a log file: total entries and count per level (INFO, WARNING, ERROR), with input validation and proper error handling | Bash |
+| [Log Analyzer](projects/log-analyzer/) | Summarizes a log file: total entries and count per level (INFO, WARNING, ERROR), with input validation and proper error handling. Implemented in both languages with identical output. | Bash, Python |
 
 ## Repository structure
 
 | Folder | Content |
 |--------|---------|
 | `bash-basics/` | Core Linux/shell commands and scripts, with notes on *why* they work |
-| `python-basics/` | Python fundamentals refresher: types, references, mutability, and more |
+| `python-basics/` | Python fundamentals refresher: types, references, files, errors, CLI arguments |
 | `projects/` | Standalone projects, each with its own README |
 
 *(This grows as the journey progresses.)*
@@ -38,3 +38,5 @@ Become credible enough to apply for cloud engineering internships, with a focus 
 
 - **2026-09** - Shell fundamentals: permissions, log inspection, `find` and globbing, scripting (arguments, validation, exit codes, command substitution).
 - **2026-09** - First project: Bash log analyzer.
+- **2026-09** - Python refresher: types, references, mutable vs immutable objects, file handling, exceptions, command-line arguments.
+- **2026-09** - Rewrote the log analyzer in Python.
