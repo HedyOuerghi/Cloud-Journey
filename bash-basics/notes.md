@@ -169,3 +169,24 @@ find . -type f | wc -l   # regular files only, recursively
 - `wc -l` counts **lines**. `ls` prints one entry per line when its output goes to a pipe (and in columns when it goes to a terminal), so the count works.
 - `find` only goes **down** from its starting point, never up: the same `find .` gives different results depending on where it is run.
 - Before counting, know exactly what you are counting: `wc -l` always returns a clean number, even when the input does not match your question.
+
+
+## Exit codes: $?, &&, ||
+
+```bash
+ls /missing/dir; echo $?; echo $?
+# 2   -> exit code of ls (failure)
+# 0   -> exit code of the first echo (success)
+```
+
+- `$?` holds the exit code of the **last command**: `0` = success, anything else = failure.
+- Every program returns one (shell commands, Bash scripts, Python scripts...).
+- `$?` is overwritten by every command, including `echo`: read it immediately.
+
+```bash
+cmd1 ; cmd2     # run cmd2 after cmd1, whatever happens
+cmd1 && cmd2    # run cmd2 only if cmd1 succeeded (exit code 0)
+cmd1 || cmd2    # run cmd2 only if cmd1 failed
+```
+
+- stderr and exit codes are two separate channels: stderr is **text** for humans, the exit code is a **number** for programs (shell, scripts, CI/CD pipelines).

@@ -165,3 +165,32 @@ for p in paths:
 - **Handle errors where the decision belongs.** The function's job is to count; it lets the error propagate. The caller decides what to do: skip the file and continue, or stop everything with `sys.exit(1)`.
 - **Never hide a failure behind a default value.** Returning `0` for a missing file would make "no errors" and "could not read the file" look identical.
 - Errors go to **stderr**: `print(..., file=sys.stderr)`. Exit code: `sys.exit(1)`. Same conventions as in Bash (`>&2`, `exit 1`).
+
+## Command-line arguments: sys.argv
+
+```python
+import sys
+
+if len(sys.argv) == 1:
+    print(f"Usage: {sys.argv[0]} <logfile>", file=sys.stderr)
+    sys.exit(1)
+
+log_file_path = sys.argv[1]
+try:
+    print(f"{log_file_path}: {count_errors(log_file_path)} errors")
+except FileNotFoundError:
+    print(f"Error: file not found: {log_file_path}", file=sys.stderr)
+    sys.exit(1)
+```
+
+- `sys.argv` is a list of what was typed on the command line. The script name is **always** included.
+
+| Bash | Python |
+|---|---|
+| `$0` | `sys.argv[0]` |
+| `$1` | `sys.argv[1]` |
+| `$#` | `len(sys.argv) - 1` |
+
+- With no argument, `sys.argv` is `['script.py']` (length 1): accessing `sys.argv[1]` raises `IndexError`. Always check the length first.
+- A `try` only protects the code written **inside** it: the call that can fail must be in the block.
+- Writing to stderr does **not** change the exit code. On failure, call `sys.exit(1)` explicitly, otherwise the script returns 0 and is seen as successful. A script that ends normally returns 0.
