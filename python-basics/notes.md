@@ -285,3 +285,41 @@ d["name"] or "default"     # "default": replaces None and empty values
 ## `if __name__ == "__main__":`
 
 `__name__` is `"__main__"` when the file is run directly, and the module name when it is imported. Code in this block runs only when the file is launched, so its functions can be imported and reused (other scripts, tests, AWS Lambda) without starting the program.
+
+
+## Environment variables and secrets
+
+**Rule: a secret (API token, password, cloud access key) is never written in the code.** Code ends up on GitHub, where bots scan for leaked keys within minutes.
+
+```bash
+MY_VAR="hello"         # shell variable: only Bash sees it
+export MY_VAR          # exported: programs launched afterwards receive it
+env | grep MY_VAR      # env lists exported variables only
+declare -p MY_VAR      # -x in the output means exported
+unset MY_VAR           # delete it
+MY_VAR="x" python3 script.py   # variable set for this command only
+```
+
+- Environment variables live in the **memory of each process**, not in files. A launched program gets a **copy** of the exported variables (one-way).
+- They vanish when the terminal closes. `~/.bashrc` is read at each new terminal to set persistent ones.
+- `echo $MY_VAR` works even when not exported: Bash expands `$MY_VAR` itself before running the command.
+- Load a secret without leaving it in `~/.bash_history`:
+
+```bash
+read -s GITHUB_TOKEN
+export GITHUB_TOKEN
+```
+
+```python
+import os
+
+token = os.environ.get("GITHUB_TOKEN")   # None if not set
+headers = {}
+if token:
+    headers["Authorization"] = f"Bearer {token}"
+requests.get(url, headers=headers, timeout=10)
+```
+
+- HTTP requests and responses carry **headers** (`Name: value`): authentication, content type, rate limits (`X-RateLimit-Limit`, `X-RateLimit-Remaining`).
+- **Least privilege**: give a token only the permissions it needs, with a short expiration. If it leaks, revoke it immediately.
+- `curl -i` shows response headers, `-H` adds a request header, `-s` hides the progress bar.

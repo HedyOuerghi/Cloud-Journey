@@ -1,8 +1,8 @@
 import requests
 import sys
-
+import os
 def fetch_user(username):
-        """
+    """
     Fetch public information about a GitHub user.
 
     Args:
@@ -14,7 +14,14 @@ def fetch_user(username):
     Raises:
         requests.exceptions.RequestException: On network or HTTP errors.
     """
-    response = requests.get("https://api.github.com/users/" + username, timeout=10)
+    url = "https://api.github.com/users/" + username
+    token = os.environ.get("GITHUB_TOKEN")
+
+    headers = {}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    response = requests.get(url, headers=headers, timeout=10)
     if response.status_code == 404:
         return None
     response.raise_for_status()
