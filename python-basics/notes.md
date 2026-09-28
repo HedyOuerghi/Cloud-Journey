@@ -234,3 +234,54 @@ elif len(sys.argv) == 3 and sys.argv[2] == "--json":
 ```
 
 `and` stops as soon as the left side is `False`: `sys.argv[2]` is never read when it does not exist. Put the guarding check **first**. Same principle as `&&` in Bash.
+
+## Virtual environments
+
+```bash
+python3 -m venv .venv            # create
+source .venv/bin/activate        # activate (this terminal only)
+pip install requests             # installs into .venv, not the system
+pip freeze > requirements.txt    # record exact versions
+pip install -r requirements.txt  # recreate the environment elsewhere
+deactivate
+```
+
+- `activate` puts `.venv/bin` at the **front** of `PATH`, so `python3` and `pip` resolve to the venv's copies first.
+- A Python interpreter looks for packages next to its own location: choosing which `python3` runs means choosing which packages are available.
+- `.venv` is never committed (large, machine-specific). `requirements.txt` is.
+
+## Calling a web API: requests
+
+```python
+response = requests.get(url, timeout=10)
+response.status_code   # attribute: HTTP status (int)
+response.text          # attribute: raw body (str)
+response.json()        # method: body decoded from JSON (dict)
+```
+
+| Code | Meaning |
+|---|---|
+| 200 | OK |
+| 404 | Not found |
+| 401 / 403 | Not authenticated / not allowed |
+| 500 | Server error |
+
+- Always set a `timeout`, or the program can hang forever.
+- `requests` does **not** raise on 404: always check the status.
+- `response.raise_for_status()` raises `HTTPError` for codes >= 400. Handle special cases (like 404) **before** it.
+- All `requests` errors (connection, timeout, HTTP) inherit from `requests.exceptions.RequestException`.
+- Keep `try` blocks as short as possible, around the call that can actually fail.
+- A function that ends without `return` returns `None` implicitly.
+
+## `dict.get()` vs `or`
+
+```python
+d = {"name": None}
+d.get("name", "default")   # None: the key exists, its value is None
+d.get("missing", "default")  # "default": the key is absent
+d["name"] or "default"     # "default": replaces None and empty values
+```
+
+## `if __name__ == "__main__":`
+
+`__name__` is `"__main__"` when the file is run directly, and the module name when it is imported. Code in this block runs only when the file is launched, so its functions can be imported and reused (other scripts, tests, AWS Lambda) without starting the program.
