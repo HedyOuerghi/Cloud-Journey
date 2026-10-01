@@ -30,6 +30,8 @@ Become credible enough to apply for cloud engineering internships, with a focus 
 |--------|---------|
 | `bash-basics/` | Core Linux/shell commands and scripts, with notes on *why* they work |
 | `python-basics/` | Python fundamentals refresher: types, references, files, errors, CLI arguments |
+| `docker-basics/` | Docker fundamentals: images, containers, bind mounts |
+| `docker-basics/` | Docker fundamentals: images, containers, bind mounts |
 | `projects/` | Standalone projects, each with its own README |
 
 *(This grows as the journey progresses.)*
