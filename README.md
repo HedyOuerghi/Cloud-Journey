@@ -12,12 +12,12 @@ Become credible enough to apply for cloud engineering internships, with a focus 
 
 - [ ] **Foundations** *(in progress)*
   - [x] Linux & Bash through practice (permissions, logs, `find`, scripting)
-  - [ ] Python through practice (files, errors, JSON, APIs)
+  - [x] Python through practice (files, errors, JSON, APIs)
+  - [ ] Docker through practice (images, containers, bind mounts)
 - [ ] **AWS Certified Cloud Practitioner** (CLF-C02)
 - [ ] **AWS Certified Solutions Architect - Associate** (SAA-C03)
 - [ ] **Infrastructure as Code** - Terraform (HashiCorp Terraform Associate)
-- [ ] **Containers** - Docker & Kubernetes basics
-
+- [ ] **Kubernetes basics**
 ## Projects
 
 | Project | Description | Stack |
@@ -41,3 +41,9 @@ Become credible enough to apply for cloud engineering internships, with a focus 
 - **2026-09** - First project: Bash log analyzer.
 - **2026-09** - Python refresher: types, references, mutable vs immutable objects, file handling, exceptions, command-line arguments.
 - **2026-09** - Rewrote the log analyzer in Python.
+- **2026-10** - Docker fundamentals: images, containers, bind mounts. Wrote the first Dockerfile for the log analyzer.
+- **2026-10** - GitHub profile cleanup: README, descriptions, topics across repositories.
+
+## Next
+- Run the log analyzer inside a container
+- Start AWS Cloud Practitioner (CLF-C02) preparation
