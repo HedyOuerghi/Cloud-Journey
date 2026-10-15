@@ -221,3 +221,4 @@ __marimo__/
 helpsheets.txt
 *.swp
 !projects/log-analyzer/samples/*.log
+personal/
